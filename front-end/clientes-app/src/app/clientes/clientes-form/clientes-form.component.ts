@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { Cliente } from '../model/cliente';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes-form',
@@ -14,7 +15,10 @@ export class ClientesFormComponent implements OnInit {
   public success: boolean = false;
   public errors: string[] = [];
 
-  constructor(private clientesService: ClientesService) {
+  constructor(
+    private clientesService: ClientesService,
+    private router: Router
+  ) {
     this.cliente = new Cliente();
   }
 
@@ -32,5 +36,9 @@ export class ClientesFormComponent implements OnInit {
         this.errors = errorResponse.error.errors;
       }
     );
+  }
+
+  public voltar(): void {
+    this.router.navigate(['/clientes-list']);
   }
 }
